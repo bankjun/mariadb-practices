@@ -59,3 +59,38 @@ select name, species, birth
   from pet
   where birth >= '1998-01-01';
   
+select name, species, gender  
+from pet
+where species = 'dog' and gender = 'f';
+
+select name, species
+from pet
+where species='snake' or species='bird';
+
+-- orderby: 정렬(내림차순(낮아짐) = desc, 오름차순(높아짐) = asc)
+select name, birth
+from pet
+order by birth desc;
+
+-- null을 연산할 때는 is (not) 을 사용해야함
+select name, death, birth
+from pet
+where death is not null;
+
+-- like @@ : @@를 포함한 데이터
+-- @@%: @@로 시작, %@@: @@로 끝, %@%: @를 포함
+select name
+from pet
+where name like '%w%';
+
+-- _ _ _ _: 글자수 4개인 데이터
+-- b_____: b로시작하고 그 뒤 글자가 4개인 데이터
+select name
+from pet
+where name like '____';
+
+-- 통계(집계)함수
+-- *: 전체, 특정컬럼셀때는 null값을 빼고 셈
+select count(death)
+from pet;
+
