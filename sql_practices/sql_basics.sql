@@ -23,7 +23,7 @@ create table pet(
 describe pet;
 desc pet;
 
--- insert: DML(c)
+-- insert: DML(C)
 insert
 into pet
 value('성탄이', '안대혁', 'dog', 'm', '2008-12-15', null);
@@ -32,9 +32,30 @@ value('성탄이', '안대혁', 'dog', 'm', '2008-12-15', null);
 select * from pet;
 
 -- update: DML(U)
-update pet
-set name='sungtanee'
-where name='성탄이';
+UPDATE pet 
+SET 
+    name = 'sungtanee'
+WHERE
+    name = '성탄이';
     
+-- delete: DML(D)
+delete
+from pet
+where name = 'sungtanee';
     
-    
+-- 데이터 통으로 올리기 load data
+load data local infile 'c:\\pet.txt' into table pet; 
+
+update pet 
+	set death =null
+    where  name != 'bowser';
+
+-- select 연습
+select name, species
+  from pet
+  where name ='bowser';
+  
+select name, species, birth
+  from pet
+  where birth >= '1998-01-01';
+  
