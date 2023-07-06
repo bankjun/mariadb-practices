@@ -87,7 +87,15 @@ select a.title, b.salary
 
 -- 문제9.
 -- 현재, 부서별 평균 연봉을 연봉이 큰 부서 순서대로 출력하세요.
+  select avg(a.salary), c.dept_name
+    from salaries a, dept_emp b, departments c
+   where a.emp_no = b.emp_no
+     and b.dept_no = c.dept_no
+     and a.to_date='9999-01-01'
+group by c.dept_name
+order by avg(a.salary) desc;
 
+select dept_name from departments;
 
 -- 문제10.
 -- 현재, 직책별 평균 연봉을 연봉이 큰 직책 순서대로 출력하세요.
