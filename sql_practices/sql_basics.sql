@@ -93,4 +93,4 @@ where name like '____';
 -- *: 전체, 특정컬럼셀때는 null값을 빼고 셈
 select count(death)
 from pet;
-
+-- 커밋테스트0706
