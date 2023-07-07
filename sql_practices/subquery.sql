@@ -197,14 +197,16 @@ order by b.salary asc;
 -- 실습문제 4: 현재, 각 부서별로 최고 연봉을 받고 있는 직원의 이름(frist)과 부서이름, 연봉, 을 출력하세요.
 -- SOL1: join
 -- 부서별 최고연봉
-select a.salary, c.dept_name
+select max(a.salary) as max_salary, c.dept_name
   from salaries a, dept_emp b, departments c
  where a.emp_no = b.emp_no
    and b.dept_no = c.dept_no
    and a.to_date = '9999-01-01'
    and b.to_date = '9999-01-01'
-group by c.dept_name
-having max(a.salary);
+group by c.dept_name;
+
+-- order by max(a.salary) desc;
+
 -- 부서별 최고연봉과 그 직원의 이름 
 select a.first_name, b.A, b.B
   from employees a, (select a.salary as A, c.dept_name as B
@@ -227,7 +229,8 @@ select a.dept_no, max(b.salary)
 where a.emp_no = b.emp_no
   and a.to_date='9999-01-01'
   and b.to_date='9999-01-01'
-group by a.dept_no;
+group by a.dept_no
+order by max(b.salary) desc;
 
 -- sol1: where절 subquery & in
 select c.dept_name, a.first_name, d.salary
