@@ -208,16 +208,16 @@ group by c.dept_name;
 -- order by max(a.salary) desc;
 
 -- 부서별 최고연봉과 그 직원의 이름 
-select a.first_name, b.A, b.B
-  from employees a, (select a.salary as A, c.dept_name as B
+select a.first_name, c.max_salary, c.dept_name
+  from employees a, dept_emp b, (select max(a.salary) as max_salary, c.dept_name as dept_name
 						from salaries a, dept_emp b, departments c
 						where a.emp_no = b.emp_no
 						and b.dept_no = c.dept_no
 						and a.to_date = '9999-01-01'
 						and b.to_date = '9999-01-01'
-						group by c.dept_name
-						having max(a.salary)) b
-where a.emp_no = b.emp_no;
+						group by c.dept_name) c
+where a.emp_no = b.emp_no
+  and b.dept_no = c.dept_no;
 
 
 -- 
