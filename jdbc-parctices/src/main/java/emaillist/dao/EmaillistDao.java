@@ -70,8 +70,7 @@ public class EmaillistDao {
 	}
 	
 	public void insert(EmaillistVo vo) {
-		List<EmaillistVo> result = new ArrayList<>();
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -91,14 +90,58 @@ public class EmaillistDao {
 			// 5. statement실행
 			rs = pstmt.executeQuery();
 			
-			// 6. 결과처리?
-			result = 
+			// 6. 결과처리할게 있나 -> sql문 실행하면 끝인데
+		    
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패: "+ e);
 		} catch (SQLException e) {
 			System.out.println("Error: "+ e);
 		} finally {// 6. 자원정리
 			try {
+				System.out.println("insert성공");
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void delete(String email) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			// 1. 클래스로딩
+			Class.forName("org.mariadb.jdbc.Driver");
+			// 2. 연결
+			String url = "jdbc:mariadb://192.168.0.150:3306/webdb?charset=utf8";
+			conn = DriverManager.getConnection(url, "webdb", "webdb");
+			// 3. statement준비
+			String sql ="delete from emaillist where email= ?";
+			pstmt = conn.prepareStatement(sql);
+			// 4. 바인딩 
+			pstmt.setString(1, email);
+			// 5. statement실행
+			rs = pstmt.executeQuery();
+			
+			// 6. 결과처리할게 있나 -> sql문 실행하면 끝인데22
+		    
+		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩 실패: "+ e);
+		} catch (SQLException e) {
+			System.out.println("Error: "+ e);
+		} finally {// 6. 자원정리
+			try {
+				System.out.println("delete 성공");
 				if(rs != null) {
 					rs.close();
 				}
