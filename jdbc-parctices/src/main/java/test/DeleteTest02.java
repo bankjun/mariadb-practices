@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DeleteTest02 {
 
 	public static void main(String[] args) {
-		boolean result = delete(2L);
+		boolean result = delete(7L);
 		System.out.println(result? "성공" : "실패");
 	}
 	
@@ -31,19 +31,18 @@ public class DeleteTest02 {
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 바인딩 
+			pstmt.setLong(1, no);
 			
 			// 5. SQL 실행
+			int count = pstmt.executeUpdate();
 			
-			
-			int count = pstmt.executeUpdate(sql);
-			
-			// 5. 결과처리
+			// 6. 결과처리
 			result = count == 1;
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패: "+ e);
 		} catch (SQLException e) {
 			System.out.println("Error: "+ e);
-		} finally {// 6. 자원정리
+		} finally {// 7. 자원정리
 			try {
 				if(pstmt != null) {
 					pstmt.close();
