@@ -4,37 +4,13 @@ public class Book {
 	private int bookNo;
 	private String title;
 	private String author;
-	private boolean stateRent; // true: 대여중, false: 재고있음
-	
-	public Book() {
-		stateRent = false;
-	}
+	private int stateCode; // true(1): 재고있, false(0): 대여
 	
 	public Book (int bookNo, String title, String author) {
 		this.setBookNo(bookNo);
 		this.title = title;
 		this.author = author;
-		stateRent = false;
-	}
-	
-	public void rent() {
-		stateRent = true;
-	}
-	
-	public void print() {
-		System.out.println(여기에 ㅓㄴ호 추가+"책 제목:" + title + ", 작가:" + author + ", 대여 유무:" + (stateRent? "대여중":"재고있음"));
-	}																			// 이거 왜 괄호쳐야하는거임?? 연산자우선순위?
-	
-	public String getTitle() {
-		return this.title;
-	}
-	
-	public boolean getStateRent() {
-		if(this.stateRent) {
-			return true;
-		}else {
-			return false;
-		}
+		this.stateCode = 1;
 	}
 
 	public int getBookNo() {
@@ -44,5 +20,36 @@ public class Book {
 	public void setBookNo(int bookNo) {
 		this.bookNo = bookNo;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public int getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
+	}
 	
+	public void rent() {
+		stateCode = 0;
+		System.out.println(title + " 이(가) 대여 됐습니다.");
+	}
+	public void print() {
+		System.out.println("[" + bookNo + "] 책 제목: " + title + ", 작가: " + author + ", 대여유무: " + (stateCode == 1? "재고있음" : "대여중"));
+	}
 }
