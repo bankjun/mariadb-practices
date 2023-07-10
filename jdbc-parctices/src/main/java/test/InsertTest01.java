@@ -22,7 +22,9 @@ public class InsertTest01 {
 			
 			// 2. 연결하기 -> 드라이버가 커넥션 객체를 생성해서 나한테 주는 것
 			String url = "jdbc:mariadb://192.168.0.150:3306/webdb?charset=utf8";
+			// 
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
+			// 
 			
 			// 3. Statement 생성
 			stmt = conn.createStatement();
@@ -30,7 +32,7 @@ public class InsertTest01 {
 			// 4. SQL 실행
 			String sql = "insert into dept values(null, '" +deptName+"')";
 			
-			int count = stmt.executeUpdate(sql);
+			int count = stmt.executeUpdate(sql); // 다른것과 다 같지만 메소드만 다름
 			
 			// 5. 결과처리
 			result = count == 1;
