@@ -8,7 +8,6 @@ public class AuthorDaoTest {
 		AuthorDao dao = new AuthorDao();
 		
 		
-
 	}
 
 }

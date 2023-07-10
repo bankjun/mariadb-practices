@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import bookshop.vo.BookVo;
 
-public class BookShop {
+public class BookShopApp {
 
 	public static void main(String[] args) {
 		System.out.println("*****도서 정보 출력하기******");
