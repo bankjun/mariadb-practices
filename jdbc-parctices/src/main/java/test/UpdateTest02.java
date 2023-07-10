@@ -2,20 +2,20 @@ package test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class SelectTest02 {
+public class UpdateTest02 {
 
 	public static void main(String[] args) {
-		list();
+		update(5L, "솔루션개발");
 	}
-	
-	public static void list () {
+
+	private static boolean update(Long deptNo, String deptName) {
+		boolean result = false;
+		
 		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
+		PreparedStatement pstmt = null;
 		try {
 			// 1. JDBC Driver Class 로딩 - DBMS 벤더들이 만들어 놓은 클래스 모음?
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -25,37 +25,25 @@ public class SelectTest02 {
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 			
 			// 3. Statement 생성
-			stmt = conn.createStatement();
-			// 커넥션객체로 Statement를 생성 -> 4번에서 SQL문(statement)를 사용하기 위해서
-			
-			
-			// 4. Binding
+			String sql = "update dept set name = '?' where no= ? ";
+			pstmt = conn.prepareStatement(sql);
 			
 			// 4. SQL 실행
-			String sql = "select no, name from dept order by no desc";
-			// 주의할점: 디버깅할때 SQL문이 오류인지 java가 오류인지 모르니까 일단 SQL이 오류없음을 증명해놓고 시작 
-			// , ";"을 뺴야함
+			pstmt.setString(1,  deptName);
+			pstmt.setLong(2, deptNo);
 			
-			rs = stmt.executeQuery(sql);
+			int count = pstmt.executeUpdate();
 			
 			// 5. 결과처리
-			while(rs.next()) {
-				Long no = rs.getLong(1); // DB는 1부터시작
-				String name = rs.getString(2);
-				
-				System.out.println(no + ":" + name);
-			}
+			result = count == 1;
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패: "+ e);
 		} catch (SQLException e) {
 			System.out.println("Error: "+ e);
 		} finally {// 6. 자원정리
 			try {
-				if(rs != null) {
-					rs.close();
-				}
-				if(stmt != null) {
-					stmt.close();
+				if(pstmt != null) {
+					pstmt.close();
 				}
 				if(conn != null) {
 					conn.close();
@@ -64,5 +52,6 @@ public class SelectTest02 {
 				e.printStackTrace();
 			}
 		}
+	return result;
 	}
 }
