@@ -4,7 +4,7 @@ public class Book {
 	private int bookNo;
 	private String title;
 	private String author;
-	private int stateCode; // true(1): 재고있, false(0): 대여
+	private int stateCode; // true(1): 재고있음, false(0): 대여
 	
 	public Book (int bookNo, String title, String author) {
 		this.setBookNo(bookNo);
