@@ -14,11 +14,11 @@ public class BookShopApp {
 		
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("대여 하고 싶은 책의 번호를 입력하세요:");
-		int num = scanner.nextInt();
+		Long num = (long) scanner.nextInt();
 		scanner.close();
 		
 		BookVo vo = new BookVo();
-		vo.setNo(null);
+		vo.setNo(num);
 		vo.setRent("y");
 		new BookDao().updateRent(vo);	
 		
@@ -29,7 +29,7 @@ public class BookShopApp {
 	private static void displayBookInfo() {
 		List<BookVo> list = new BookDao().findAll();
 		for(BookVo vo : list) {
-			System.out.println("[" + vo.getNo() + "] 책 제목: " + vo.getTitle() + ", 작가: " + vo.getAuthorName() + ", 대여 유무: " + (vo.getRent().equals("y") ? "재고 있음": "대여중") );
+			System.out.println("[" + vo.getNo() + "] 책 제목: " + vo.getTitle() + ", 작가: " + vo.getAuthorName() + ", 대여 유무: " + (vo.getRent().equals("y") ? "대여중": "재고있음") );
 		}
 		
 	}
