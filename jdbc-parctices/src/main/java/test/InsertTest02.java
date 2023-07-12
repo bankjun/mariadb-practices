@@ -24,14 +24,12 @@ public class InsertTest02 {
 			
 			// 2. 연결하기 -> 드라이버가 커넥션 객체를 생성해서 나한테 주는 것
 			String url = "jdbc:mariadb://192.168.0.150:3306/webdb?charset=utf8";
-			// 
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 			// 
 			
 			// 3. Statement 생성
 			
 			String sql = "insert into dept values(null, ?)";
-			
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 바인딩(binding)
